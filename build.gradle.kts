@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform") version "1.9.0"
+    kotlin("plugin.serialization") version "1.8.21"
 }
 
 group = "city.atomic"
@@ -38,6 +39,7 @@ kotlin {
     sourceSets {
         val nativeMain by getting {
             dependencies {
+                implementation("io.github.pdvrieze.xmlutil:serialization:0.86.1")
                 implementation("com.github.ajalt.clikt:clikt:4.2.0")
             }
         }
