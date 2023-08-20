@@ -26,6 +26,12 @@ kotlin {
         binaries {
             executable {
                 entryPoint = "main"
+                runTask?.run {
+                    val args = providers.gradleProperty("runArgs")
+                    argumentProviders.add(CommandLineArgumentProvider {
+                        args.orNull?.split(' ') ?: emptyList()
+                    })
+                }
             }
         }
     }
