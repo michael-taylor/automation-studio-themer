@@ -118,7 +118,7 @@ val allCategories = listOf(
     ),
     Category(
         name = "TextEditor",
-        font = Font(),
+        font = Font(name = "Courier New"),
         items = Items(listOfNotNull(
             itemDefaults[ItemType.DataType],
             itemDefaults[ItemType.Number],
