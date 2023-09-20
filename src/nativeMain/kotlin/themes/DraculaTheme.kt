@@ -2,8 +2,6 @@ package themes
 
 import automationstudio.Color
 import automationstudio.ItemType
-import kotlin.math.max
-import kotlin.math.min
 
 class DraculaTheme : Theme {
     override val name: String
@@ -50,12 +48,7 @@ class DraculaTheme : Theme {
     }
 
     override fun monitorBackgroundColor(): Color {
-        val colorAdjustment = 30;
-        return Color(
-            min(bg.r + colorAdjustment, 255),
-            bg.g,
-            max(bg.b - colorAdjustment, 0)
-        )
+        return bg.tintRed(20)
     }
 
     override fun selectionBackgroundColor(): Color {
