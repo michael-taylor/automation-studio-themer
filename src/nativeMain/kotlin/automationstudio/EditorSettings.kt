@@ -2,12 +2,10 @@ package automationstudio
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
-import nl.adaptivity.xmlutil.XmlBufferedWriter
-import nl.adaptivity.xmlutil.XmlWriter
-import nl.adaptivity.xmlutil.serialization.DefaultXmlSerializationPolicy
 import nl.adaptivity.xmlutil.serialization.XML
 import nl.adaptivity.xmlutil.serialization.XmlElement
 import nl.adaptivity.xmlutil.serialization.XmlSerialName
+import themes.Theme
 
 enum class ItemType {
     DataType,
@@ -84,7 +82,7 @@ data class Item(
     @XmlElement(false)
     val name: ItemType,
     @XmlSerialName("ForeColor")
-    val foreColor: Color? = null
+    var foreColor: Color? = null
 )
 
 @Serializable
@@ -97,11 +95,11 @@ data class Category(
     @XmlSerialName("Font")
     val font: Font?,
     @XmlSerialName("BackColor")
-    val backColor: Color? = null,
+    var backColor: Color? = null,
     @XmlSerialName("MonitorBackColor")
-    val monitorBackColor: Color? = null,
+    var monitorBackColor: Color? = null,
     @XmlSerialName("SelectionBackColor")
-    val selectionBackColor: Color? = null,
+    var selectionBackColor: Color? = null,
     val items: Items
 )
 
@@ -152,6 +150,17 @@ data class EditorSettings(
     val categories: Categories = Categories(categories = allCategories),
     val defaultEditors: DefaultEditors = DefaultEditors(defaultEditors = defaultEditorDefaults)
 ) {
+    fun applyTheme(theme: Theme) {
+        for (c in categories.categories) {
+            for (i in c.items.items) {
+                i.foreColor = theme.colorFor(i.name)
+            }
+            c.backColor = theme.backgroundColor()
+            c.selectionBackColor = theme.selectionBackgroundColor()
+            c.monitorBackColor = theme.monitorBackgroundColor()
+        }
+    }
+
     fun toXml(): String {
         val xml = XML() {
             indentString = "  "
