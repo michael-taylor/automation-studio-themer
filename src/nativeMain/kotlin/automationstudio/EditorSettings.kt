@@ -71,7 +71,7 @@ data class Font(
     @XmlSerialName("Name")
     val name: String = "Microsoft Sans Serif",
     @XmlSerialName("Size")
-    val size: Int = 10,
+    val size: Int = 8,
     @XmlSerialName("Style")
     val style: String = "Regular"
 )
