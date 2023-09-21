@@ -62,3 +62,24 @@ fun Color.tintRed(adjustment: Int): Color {
         max(this.b - adjustment, 0)
     )
 }
+
+private fun Int.clamp(min: Int, max: Int): Int {
+    return min(max(min, this), max)
+}
+
+fun Color.blend(other: Color, alphaPercent: Int): Color {
+    val alpha = alphaPercent.clamp(0, 100)
+    return Color(
+        (alpha * this.r + ((1 - alpha) * other.r)).clamp(0, 255),
+        (alpha * this.g + ((1 - alpha) * other.g)).clamp(0, 255),
+        (alpha * this.b + ((1 - alpha) * other.b)).clamp(0, 255)
+    )
+}
+
+fun Color.darken(background: Color, amount: Int): Color {
+    return this.blend(background, amount)
+}
+
+fun Color.lighten(foreground: Color, amount: Int): Color {
+    return this.blend(foreground, amount)
+}
