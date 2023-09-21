@@ -93,7 +93,7 @@ data class Category(
     @XmlSerialName("Name")
     val name: String,
     @XmlSerialName("Font")
-    val font: Font?,
+    var font: Font?,
     @XmlSerialName("BackColor")
     var backColor: Color? = null,
     @XmlSerialName("MonitorBackColor")
@@ -158,6 +158,13 @@ data class EditorSettings(
             c.backColor = theme.backgroundColor()
             c.selectionBackColor = theme.selectionBackgroundColor()
             c.monitorBackColor = theme.monitorBackgroundColor()
+        }
+    }
+
+    fun setTextEditorFont(fontName: String) {
+        val category = categories.categories.find { it.name == "TextEditor" }
+        if (category != null) {
+            category.font = Font(fontName)
         }
     }
 
