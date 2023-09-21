@@ -41,6 +41,7 @@ kotlin {
             dependencies {
                 implementation("io.github.pdvrieze.xmlutil:serialization:0.86.1")
                 implementation("com.github.ajalt.clikt:clikt:4.2.0")
+                implementation("com.squareup.okio:okio:3.5.0")
             }
         }
         val nativeTest by getting
