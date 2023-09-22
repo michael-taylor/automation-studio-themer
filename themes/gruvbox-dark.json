@@ -1,0 +1,17 @@
+{
+  "colors": {
+    "foreground": "#ebdbb2",
+    "background": "#282828",
+    "selectionBackground": "#3c3836",
+    "textSelection": "#fabd2f",
+    "dataType": "#8ec07c",
+    "number": "#d3869b",
+    "keyword": "#fb4934",
+    "remark": "#928374",
+    "string": "#b8bb26",
+    "name": "#fabd2f",
+    "equal": "#b8bb26",
+    "warnings": "#fabd2f",
+    "errors": "#fb4934"
+  }
+}

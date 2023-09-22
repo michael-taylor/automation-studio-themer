@@ -13,46 +13,32 @@ interface Theme {
     fun selectionBackgroundColor(): Color
 }
 
-fun generateThemeFromSeed(
-    foreGround: Color,
-    selectionForeGround: Color,
-    success: Color,
-    warning: Color,
-    error: Color,
-    comment: Color,
-    string: Color,
-    number: Color,
-    keyword: Color,
-    dataType: Color,
-    name: Color
-) : Map<ItemType, Color> {
-    val colorMap = mutableMapOf<ItemType, Color>()
+class ThemeImpl(
+    private val themeName: String,
+    private val defaultForeground: Color,
+    private val background: Color,
+    private val selectionBackground: Color,
+    private val monitorBackground: Color,
+    private val colorMap: Map<ItemType, Color>
+) : Theme {
+    override val name: String
+        get() = themeName
 
-    for (t in ItemType.entries) {
-        colorMap[t] = when (t) {
-            ItemType.DataType -> dataType
-            ItemType.Number -> number
-            ItemType.InvalidKeyword -> error
-            ItemType.Keyword -> keyword
-            ItemType.Name -> name
-            ItemType.Remark -> comment
-            ItemType.String -> string
-            ItemType.Text -> foreGround
-            ItemType.TextSelection -> selectionForeGround
-            ItemType.Operator -> keyword
-            ItemType.Linenumber -> comment
-            ItemType.LineModificatorChange -> warning
-            ItemType.LineModificatorSave -> success
-            ItemType.BracesHighlight -> keyword
-            ItemType.IncludeFiles -> dataType
-            ItemType.Different -> warning
-            ItemType.Errors -> error
-            ItemType.Warnings -> warning
-            else -> foreGround
-        }
+    override fun colorFor(item: ItemType): Color {
+        return colorMap[item] ?: defaultForeground
     }
 
-    return colorMap
+    override fun backgroundColor(): Color {
+        return background
+    }
+
+    override fun monitorBackgroundColor(): Color {
+        return monitorBackground
+    }
+
+    override fun selectionBackgroundColor(): Color {
+        return selectionBackground
+    }
 }
 
 fun Color.tintRed(adjustment: Int): Color {
