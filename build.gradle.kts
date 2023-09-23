@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform") version "1.9.0"
     kotlin("plugin.serialization") version "1.9.0"
+    distribution
 }
 
 group = "city.atomic"
@@ -38,4 +39,17 @@ kotlin {
         }
         val nativeTest by getting
     }
+}
+
+distributions {
+    main {
+        contents {
+            from("$buildDir/bin/native/debugExecutable")
+            from("themes")
+        }
+    }
+}
+
+tasks.named<Zip>("distZip") {
+    dependsOn("linkDebugExecutableNative")
 }
