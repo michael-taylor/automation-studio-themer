@@ -5,11 +5,10 @@ plugins {
 }
 
 group = "city.atomic"
-version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
-}
+version = "1.0.0"
+
+repositories { mavenCentral() }
 
 kotlin {
     // This project only supports Windows (Automation Studio itself is Windows-only)
@@ -21,9 +20,9 @@ kotlin {
                 entryPoint = "main"
                 runTask?.run {
                     val args = providers.gradleProperty("runArgs")
-                    argumentProviders.add(CommandLineArgumentProvider {
-                        args.orNull?.split(' ') ?: emptyList()
-                    })
+                    argumentProviders.add(
+                            CommandLineArgumentProvider { args.orNull?.split(' ') ?: emptyList() }
+                    )
                 }
             }
         }
@@ -50,6 +49,5 @@ distributions {
     }
 }
 
-tasks.named<Zip>("distZip") {
-    dependsOn("linkDebugExecutableNative")
-}
+tasks.named<Zip>("distZip") { dependsOn("linkDebugExecutableNative") }
+
