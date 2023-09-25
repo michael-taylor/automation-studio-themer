@@ -3,15 +3,18 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.ProgramResult
 import com.github.ajalt.clikt.core.context
 import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.options.versionOption
 import okio.FileSystem
 import okio.Path.Companion.toPath
+import templates.App
 import themes.*
 
-class Themer : CliktCommand() {
+class Themer : CliktCommand(name = "automation-studio-themer") {
     init {
         context {
             helpOptionNames = setOf("-h", "--help")
         }
+        versionOption(version = App.VERSION)
     }
 
     private val theme by option("-t", "--theme", help = "Name of theme file")

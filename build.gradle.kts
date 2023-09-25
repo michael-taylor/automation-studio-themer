@@ -6,9 +6,19 @@ plugins {
 
 group = "city.atomic"
 
-version = "1.0.0"
+version = "1.0.3"
 
 repositories { mavenCentral() }
+
+val copyTemplates by tasks.registering(Copy::class) {
+    val props = mapOf(
+        "version" to version
+    )
+    from(projectDir.resolve("src/nativeMain/templates"))
+    into(buildDir.resolve("generated-sources/templates/kotlin/main"))
+    inputs.properties(props)
+    expand(props)
+}
 
 kotlin {
     // This project only supports Windows (Automation Studio itself is Windows-only)
@@ -29,6 +39,7 @@ kotlin {
     }
     sourceSets {
         val nativeMain by getting {
+            kotlin.srcDirs(copyTemplates)
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
                 implementation("io.github.pdvrieze.xmlutil:serialization:0.86.1")
